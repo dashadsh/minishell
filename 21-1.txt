@@ -1,0 +1,262 @@
+imicah
+////////////////////////////////////////////////////////////////////////
++ readline, rl_clear_history, rl_on_new_line,
++ rl_replace_line, rl_redisplay, add_history, printf
+malloc, free, write
++ access
+open, read, close, fork, wait, waitpid, wait3, wait4, signal
++ sigaction, sigemptyset, sigaddset
+kill, exit, getcwd, chdir, stat, lstat, fstat, 
++ unlink
+execve, dup, dup2, pipe, opendir, readdir, closedir, strerror
++ perror, isatty, ttyname, ttyslot, ioctl,
++ getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
++ tgetnum, tgetstr, tgoto, tputs
+////////////////////////////////////////////////////////////////////////
+HOW DO WE APPROACH MINISHELL???
+//////////////////
+ALLOWED FUNCTIONS FIRST:
+ - pipe
+
+ - fork - things you change in child, would remain
+ unchangend in a parent.
+ fork returns PID, if == 0 - you're in child process
+
+ - wait - processes work in parallel, parent waits for child to finish
+ (or appearance of signal - IDK ABT THAT!!!)
+ wait() waits for any process(all of them)
+ arg (*int) - it's status to see with which code exits the child.
+ waitpid will wait for sertain process
+ check difference between wait3, wait4!
+ 
+ - SIGNAL!
+
+ - execve - takes 3 args -  (char *name, char *av, char **envp)
+ if success does nothing, exits process
+ if not - return (-1), ERRNO
+
+ - kill - not necessary for minishell? it's name is confusing:
+ used to send signal to the process
+ it's args (pid_t pid, int sig)
+
+ - dup
+ - dup2
+ - getcwd
+ - strerror
+ - errno
+////////////////////////////////////////////////////////////////////////
+PARTS OF PROJECT
+
+PARSING - all commands are entered from command-line
+//////////////////
+BUILTINS - custom command:
+ - echo writes command in fd
+
+ - pwd doesn’t rely on envp, just prints current directory
+
+ - env - key=value pair
+
+ - export - WTF declare-x? 
+ we can add variable here (key=value)
+ used to change variables in ENVP
+ export qwe / export qwe= /export qwe" - it's all different things!
+ we can also change those variables
+
+ - unset - removes what export does
+
+ - exit 
+//////////////////
+SIGNALS
+
+//////////////////
+running external programs - fork, execve, dup needed for that
+
+//////////////////
+redirect, pipe logic
+
+how work many pipes, redirects, reversed redirect, pipe+redirect
+1 pipe should work exactly like 5 pipes do
+//////////////////
+error handling (should be bash-like)
+////////////////////////////////////////////////////////////////////////
+
+HOW TO SPLIT WORK WITH TEAMMATE?
+entrance/exit to functions - which parameters funct will take
+structs for data
+
+////////////////////////////////////////////////////////////////////////
+PARSING
+
+ - check out ENVP
+  we can print all variables located there
+
+ example: $PWD (pwd is a key)
+
+ export qwe=ls
+ $qwe => ls will show all files
+
+ envp - we need to malloc 2d array for it
+
+ $PATH "$PATH" '$PATH' - different things
+
+ bash will be parsing until it sees special character:
+ $(will execute new part as well):
+ echo $PATHqwe - will find nothing
+ echo $PATH$qwe  - will find PATH and qwe 
+ (print qwe's value if you saved it as a key in envp)
+ echo $PATH\qwe - will find PATH and print qwe
+ 
+ check out\
+
+special symbol  - is a place where we "break" our parsing
+//////////////////////////////////////////////////////////////////////////////////
+
+
+ SIC  - "qwe"'qwe' - it's 1 arg, not 2
+ '' - strong parethesis
+ "" - weak parenthesis
+
+ echo "   $PATH   " - for variables, white spaces are added, will be printed
+ whitespace i case of ENVP is a special symbol
+
+echo '    $PATH    ' - will just print string, nothing will be found/executed
+echo ' " " " ' -> " " "
+echo ' " " ' -> " "
+echo " '   ' " -> '   '
+echo " ' $PATH ' " -> ' will print path here ' (in this case double quotes are more important)
+
+except multiline command - not undef dehavior
+echo "
+
+
+" -> better to do echo " " (no segfault even if it's undefined behavior)
+
+/////
+
+echo \t "\t" '\t' "\\" 
+"\" - wouldn't appear
+"   \"   " -> "
+"   "   " -> will ask for 4th "
+"   \'   " -> \'
+in double quotes экранируется \ " $
+" $PATH " -> prints path
+" \$PATH " -> $PATH
+\  in "" ''
+
+//////
+
+semicolon ; 
+ls ls  -> error no such file
+ls ; ls -> 2 times ls command
+echo ";" ; - different things
+echo ";" -> ;
+echo ; -> will see ; as an argument
+
+special symbols are ; | > < >>
+
+SIC!!!!
+bad pactice is to use split using white spaces
+bad practice is to use modified split
+better to check symbol by symbol
+
+ls qweqweqwe ; pwd -> no such file & will print wd
+
+test case:
+export qwe=1234567 ; echo $qwe -> 1234567
+if you have ; you need to execute 1st part first
+
+//////////////////////
+ls ; ./ls ->executed (found in PATH); no such file in current 
+ls ; /bin/ls -> will be similar
+/bin/      ./ls -> /bin/./ls will work SIC
+./ls ../ls /ls
+unset PATH -> ls -> no such file or directory
+unset PATH -> /bin/ls -> OK
+
+parsing symbol by symbol  - bad performance,
+a lot of malloc, etc...
+but more safe
+
+echo "  $PATH  "'     $PATH'
+args were saved as list-> switched to 2d array
+
+ - echo - collected
+ when whitespace - saved as 1st arg and left for a while
+
+ - " -> if you see whitespace, don't skip, add it here
+ $PATH will be proceeded immideately, save value of path
+ " again - return from function that searches for ""
+ 2nd arg contains value 
+
+ - ' ->collect everything until second ' (another function)
+ => will print PATH from ENVP, then       $PATH       
+
+ e''c''h''o hello -> will print hello
+ delimiters are white spaces and special symbols,
+ quotes are NOT special symbols
+
+ do not proceed parcing in build-in commands
+ echo, cd and other commands should be just executed
+ no checks when command is executed
+ everything should be done before, during parcing
+
+ we also need to parse pipes
+ flag for pipe? pipe use in arg? think about how to save pipes for later
+
+ split using whitespase, pipe....  - impossible, u can see pipe in quotes for example...
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+CHILD PROCESS
+fork needed to run execve
+parent is waiting
+
+if execve == -1 =>exit! otherwise you will collect more and more errors
+buildin in child process not needed
+buildin is a function
+child process is needed for pipes also
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+int fd[2]
+pipe(fd)
+
+fd[0] reading
+fd[1] writing
+
+fd[1] -> fd[0]
+
+int dup2(fd[1], 1) - for CHILD
+close unused fd0
+execve
+close fd1, 1
+
+opposite - for PARENT
+close fd1
+wait
+close fd0
+
+
+ls | grep ; cat -> problem since we switched descriptors
+then we need to switch fd back after death of child:
+dup2(temp_0_fd, 0)
+
+multiple pipes?? dup2(temp_0_fd, 0) we do when all pipes are gone
+
+////////////////////////////////////////////////////////
+REDIRECT
+
+works with one fd only
+
+struct{
+	int fd1, fd0;
+}
+
+int fd; ">"
+fd = open(filename, .... )
+struct.fd1 = fd
+////////////////////////////////////////////////////////
+
+protecting system calls or not?
+malloc, wait, dup2

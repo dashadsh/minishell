@@ -1,0 +1,35 @@
+rdrizzle
+
+1.read - with readline reading command which was entered in terminal
+2.lexer - command is being split there into tokens
+3.parser - token analysis ("")
+4.execute
+5.post-actions (status of exit...do we need to read cmd again---)
+
+---
+build-in - 
+functions are not system-defined, but in shell.
+simple custom function.
+pwd calls getcwd
+2 cases: 
+ - 1 command: 
+ ms$ pwd (args) - prompt, build-in, 
+ no forks, nothing special:
+ int builtin_pwd(arg..)
+ - using pipe:  
+ ms$ pwd (args) | exit 
+ each build-in we run in it s process:
+ 1.fork
+ 2.if == child 
+ 3.prepare
+ 4.built-in
+ 5.post_action
+ 6.exit
+ ---
+
+exit - finish process
+exit (1 arg, it'a number), more args/  - error
+exit n
+n%256 - exit status, all code exits 0-255
+---
+export
