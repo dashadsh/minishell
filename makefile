@@ -14,7 +14,8 @@ CC		=	gcc
 CFLAGS	=	-g -Werror -Wextra -Wall
 
 RDLIB	=  -I/opt/homebrew/Cellar/readline/8.2.1/include -L/opt/homebrew/Cellar/readline/8.2.1/lib -lreadline
-#RDLIB	=	-lreadline
+# RDLIB	=	-lreadline
+# RDLIB = 	-I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 
 LIB_DIR =	./library/libft/
 LIBFT	=	./library/libft/libft.a
