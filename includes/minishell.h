@@ -113,6 +113,12 @@ int		main(int ac, char **av, char **envp);
 void	cd_home(t_data *data);
 void	ft_cd(t_data *data, char **str);
 
+// cd_utils.c
+void	update_env_value(t_envp *lst, char *key, char *new_value);
+char	*get_current_dir(void);
+void	update_oldpwd(t_data *data);
+void	update_pwd(t_data *data);
+
 // echo.c
 void	ft_echo(char **s);
 
