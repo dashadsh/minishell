@@ -25,17 +25,17 @@ GREEN = $(shell tput setaf 2) # Sets the color to green
 RESET = $(shell tput sgr0) # Resets to the default color
 
 $(NAME): $(SRC) $(LIBFT)
-	$(CC) $(SRC) $(CFLAGS) $(RDLIB) $(LIBFT) -o $(NAME)
+	@$(CC) $(SRC) $(CFLAGS) $(RDLIB) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)minishell compiled successfully, now run ./minishell$(RESET)"
 
 $(LIBFT):
-	make -C $(LIB_DIR)
+	@make -C $(LIB_DIR)
 
 clean:
-	make clean -C $(LIB_DIR)
+	@make clean -C $(LIB_DIR)
 
 fclean: clean
-	make fclean -C $(LIB_DIR)
-	rm -rf $(NAME)
+	@make fclean -C $(LIB_DIR)
+	@rm -rf $(NAME)
 
 re: fclean all
