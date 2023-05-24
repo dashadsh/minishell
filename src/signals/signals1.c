@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:17:09 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/16 10:11:18 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/24 20:14:26 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ctrl_c_interactive(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_exit_status = 130;
 }
 
 /// @brief default signal flow
@@ -46,11 +47,18 @@ void	sig_interactive(void)
 
 void	ctrl_c_ctrl_bslash_noninteractive(int sig)
 {
-	(void)sig;
 	if (sig == SIGQUIT)
-		write(1, "quit", 4);
-	write(1, "\n", 1);
-	rl_on_new_line();
+	{
+		g_exit_status = 128 + sig;
+		write(1, "quit\n", 5);
+		rl_on_new_line();
+	}
+	else if (sig == SIGINT)
+	{
+		g_exit_status = 128 + sig;
+		write(1, "\n", 1);
+		rl_on_new_line();
+	}
 }
 
 /// @brief for child processes usage 
