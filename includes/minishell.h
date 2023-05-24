@@ -285,6 +285,6 @@ void	sig_noninteractive(void);
 void	ctrl_c_heredoc(int sig);
 void	sig_heredoc(void);
 void	ctrl_c_heredoc_parent(int sig);
-void	sig_parent_heredoc2(void);
+void	sig_parent_heredoc(void);
 
 #endif

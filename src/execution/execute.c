@@ -61,6 +61,8 @@ void	child_process(t_cmdgroup *group)
 	group->pid = fork();
 	if (group->pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		in_out_handler(group);
 		if (execve(group->cmd[0], group->cmd, NULL) == -1)
 			printf("minishell: %s: command not found\n", group->cmd[0]);
@@ -74,10 +76,10 @@ void	execute(t_data *data)
 	int			stdin;
 	int			stdout;
 
+	sig_noninteractive();
 	group = data->cmdgroup;
 	while (group)
 	{
-		sig_noninteractive();
 		if (isbuiltin(group))
 		{
 			stdin = dup(STDIN_FILENO);
