@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:17:04 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/16 10:14:54 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:01:20 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	sig_heredoc(void)
 void	ctrl_c_heredoc_parent(int sig)
 {
 	(void)sig;
+	g_exit_status = 130;
 }
 
-void	sig_parent_heredoc2(void)
+void	sig_parent_heredoc(void)
 {
 	struct sigaction	sa;
 

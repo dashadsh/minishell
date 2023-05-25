@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01early_err_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:17 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/04 15:01:19 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:08:39 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	pipes_err(char *input)
 
 /// @brief minishell supports limited amt of special chars outside quotes:
 /// pipe, and redirections.
-/// couldn't add # ‘ ´ here
+/// couldn't add # ‘ ´ here'
 /// @param input 
 /// @return -1 on error
 int	spec_char_err(char *input)

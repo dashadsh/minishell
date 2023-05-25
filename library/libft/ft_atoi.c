@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 16:07:07 by dgoremyk          #+#    #+#             */
-/*   Updated: 2022/05/25 18:08:13 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:48:02 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -24,11 +24,30 @@ int	exit_n(char *str)
 	return (n);
 }
 
+int	shlvl(t_data *data)
+{
+	t_envp	*env;
+
+	env = data->env_lst;
+	while (env)
+	{
+		if (!ft_strncmp(env->key, "SHLVL", 5))
+			break ;
+		env = env->next;
+	}
+	if (env)
+		return (ft_atoi(env->value));
+	return (0);
+}
+
 int	ft_exit(t_data *data, t_cmdgroup *group, char **str)
 {
 	if (group->prev || group->next)
 		return (1);
-	printf("exit\n");
+	if (shlvl(data) == 1)
+		printf("logout\n");
+	else
+		printf("exit\n");
 	if (arrlen(str) == 1)
 		return (g_exit_status = 0, exit_free(data), 1);
 	if (arrlen(str) > 1)
@@ -41,7 +60,7 @@ int	ft_exit(t_data *data, t_cmdgroup *group, char **str)
 		else if (arrlen(str) > 2)
 		{
 			printf("minishell: exit: too many arguments\n");
-			return (g_exit_status = 1, exit_free(data), 1);
+			return (g_exit_status = 1);
 		}
 		else
 			return (g_exit_status = exit_n(str[1]), exit_free(data), 1);

@@ -113,6 +113,12 @@ int		main(int ac, char **av, char **envp);
 void	cd_home(t_data *data);
 void	ft_cd(t_data *data, char **str);
 
+// cd_utils.c
+void	update_env_value(t_envp *lst, char *key, char *new_value);
+char	*get_current_dir(void);
+void	update_oldpwd(t_data *data);
+void	update_pwd(t_data *data);
+
 // echo.c
 void	ft_echo(char **s);
 
@@ -167,6 +173,7 @@ char	*ft_strdup1(const char *str);
 //---------------ENV_INIT-----------------//
 // envplist_handler.c
 char	*ft_strdup2(const char *str, int len);
+void	envplist_handler(t_envp **head, char **envp);
 t_envp	*create_envp_node(char **data);
 void	envp_add_back(t_envp **lst, t_envp *new);
 t_envp	*envp_last(t_envp *lst);
@@ -279,7 +286,7 @@ void	sig_noninteractive(void);
 void	ctrl_c_heredoc(int sig);
 void	sig_heredoc(void);
 void	ctrl_c_heredoc_parent(int sig);
-void	sig_parent_heredoc2(void);
+void	sig_parent_heredoc(void);
 
 //nested minishell
 int		ft_isnested(char *s1);

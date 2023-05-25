@@ -76,10 +76,10 @@ void	execute(t_data *data)
 	int			stdin;
 	int			stdout;
 
+	sig_noninteractive();
 	group = data->cmdgroup;
 	while (group)
 	{
-		sig_noninteractive();
 		if (isbuiltin(group))
 		{
 			stdin = dup(STDIN_FILENO);

@@ -41,12 +41,10 @@ int	here_doc(char *delimeter)
 	chexit = 1;
 	pid = fork();
 	if (pid == 0)
-	{
 		here_doc2(delimeter);
-	}
 	else
 	{
-		sig_parent_heredoc2();
+		sig_parent_heredoc();
 		waitpid(pid, &chexit, 0);
 		if (WIFEXITED(chexit))
 			return (1);

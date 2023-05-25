@@ -13,9 +13,9 @@ CC		=	gcc
 
 CFLAGS	=	-g -Werror -Wextra -Wall
 
-# RDLIB	=  -I/opt/homebrew/Cellar/readline/8.2.1/include -L/opt/homebrew/Cellar/readline/8.2.1/lib -lreadline
+RDLIB	=  -I/opt/homebrew/Cellar/readline/8.2.1/include -L/opt/homebrew/Cellar/readline/8.2.1/lib -lreadline
 # RDLIB	=	-lreadline
-RDLIB = 	-I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+# RDLIB = 	-I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 
 LIB_DIR =	./library/libft/
 LIBFT	=	./library/libft/libft.a
@@ -26,7 +26,7 @@ GREEN = $(shell tput setaf 2) # Sets the color to green
 RESET = $(shell tput sgr0) # Resets to the default color
 
 $(NAME): $(SRC) $(LIBFT)
-	@$(CC) $(CFLAGS) $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
+	@$(CC) $(SRC) $(CFLAGS) $(RDLIB) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)minishell compiled successfully, now run ./minishell$(RESET)"
 
 $(LIBFT):
