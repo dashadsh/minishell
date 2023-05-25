@@ -44,10 +44,7 @@ int	ft_exit(t_data *data, t_cmdgroup *group, char **str)
 {
 	if (group->prev || group->next)
 		return (1);
-	if (shlvl(data) == 1)
-		printf("logout\n");
-	else
-		printf("exit\n");
+	printf("exit\n");
 	if (arrlen(str) == 1)
 		return (g_exit_status = 0, exit_free(data), 1);
 	if (arrlen(str) > 1)

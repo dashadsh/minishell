@@ -289,7 +289,7 @@ void	ctrl_c_heredoc_parent(int sig);
 void	sig_parent_heredoc(void);
 
 //nested minishell
-int		ft_isnested(char *s1);
+int		ft_isnested(t_cmdgroup *group);
 char	*ft_update(char *value);
 int		ft_nested(t_data *data, t_cmdgroup	*group);
 void	envplist_handler(t_envp **head, char **envp);

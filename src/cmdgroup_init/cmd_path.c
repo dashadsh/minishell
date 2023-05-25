@@ -12,19 +12,22 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_isnested(char *s1)
+int	ft_isnested(t_cmdgroup *group)
 {
 	int		i;
 	int		j;
+	char	*s1;
 	char	s2[10];
 
 	j = 0;
+	i = 0;
+	if (!group->cmd || !group->cmd[0])
+		return (1);
+	s1 = group->cmd[0];
 	ft_strcpy(s2, "minishell");
 	if (!s1 || !s1[0] || access(s1, X_OK))
 		return (1);
-	if (ft_strlen(s1) == 9)
-		i = 0;
-	else if (ft_strlen(s1) > 9)
+	if (ft_strlen(s1) > 9)
 		i = ft_strlen(s1) - 9;
 	while (s1[i] && s2[j] && s1[i] == s2[j])
 	{
@@ -85,7 +88,7 @@ void	get_cmdpath(t_data *data)
 		path = ft_split(env->value, ':');
 	while (group)
 	{
-		if (!ft_isnested(group->cmd[0]))
+		if (!ft_isnested(group))
 			ft_nested(data, group);
 		else if (path)
 			add_path(group, path);

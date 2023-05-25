@@ -62,7 +62,7 @@ void	child_process(t_cmdgroup *group)
 	if (group->pid == 0)
 	{
 		in_out_handler(group);
-		if (!ft_isnested(group->cmd[0]) && (group->next || group->prev))
+		if (!ft_isnested(group) && (group->next || group->prev))
 			printf("pipes not supported for this operation\n");
 		else if (execve(group->cmd[0], group->cmd, NULL) == -1)
 			printf("minishell: %s: command not found\n", group->cmd[0]);
