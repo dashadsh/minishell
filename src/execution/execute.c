@@ -61,6 +61,7 @@ void	child_process(t_cmdgroup *group)
 	group->pid = fork();
 	if (group->pid == 0)
 	{
+		sig_noninteractive();
 		in_out_handler(group);
 		if (!ft_isnested(group) && (group->next || group->prev))
 			printf("pipes not supported for this operation\n");
@@ -76,7 +77,8 @@ void	execute(t_data *data)
 	int			stdin;
 	int			stdout;
 
-	sig_noninteractive();
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	group = data->cmdgroup;
 	while (group)
 	{
