@@ -31,6 +31,8 @@ int	isbuiltin(t_cmdgroup *group)
 		return (1);
 	if (!ft_strncmp(str[0], "env", 3) && ft_strlen(str[0]) == 3)
 		return (1);
+	if (!ft_strncmp(str[0], "exit", 4) && ft_strlen(str[0]) == 4)
+		return (1);
 	return (0);
 }
 
@@ -53,6 +55,8 @@ void	execbn(t_data *data, t_cmdgroup *group)
 		ft_unset(data, str);
 	if (!ft_strncmp(str[0], "env", 3) && ft_strlen(str[0]) == 3)
 		ft_env(data, str);
+	if (!ft_strncmp(str[0], "exit", 4) && ft_strlen(str[0]) == 4)
+		ft_exit(data, group, str);
 }
 
 void	reset(t_data *data)

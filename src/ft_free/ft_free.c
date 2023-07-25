@@ -61,13 +61,21 @@ void	free_cmdgroup(t_data *data)
 	}
 }
 
+void	exec_free(t_data *data)
+{
+	unlink("here_doc.txt");
+	free(data->input);
+	free_token_lst(&data->token_lst);
+	free_cmdgroup(data);
+	data->input = NULL;
+}
+
 void	exit_free(t_data *data)
 {
 	t_envp	*env;
 
+	exec_free(data);
 	env = data->env_lst;
-	if (data->input)
-		free(data->input);
 	while (env)
 	{
 		free(env->key);
@@ -77,13 +85,5 @@ void	exit_free(t_data *data)
 		env = data->env_lst;
 	}
 	free(data);
-	exit(1);
-}
-
-void	exec_free(t_data *data)
-{
-	unlink("here_doc.txt");
-	free(data->input);
-	free_token_lst(&data->token_lst);
-	free_cmdgroup(data);
+	exit(g_exit_status);
 }

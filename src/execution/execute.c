@@ -47,7 +47,7 @@ void	in_out_handler(t_cmdgroup *group)
 		|| !group->cmd || !group->cmd[0])
 	{
 		if (!isbuiltin(group))
-			exit(1);
+			exit(127);
 		return ;
 	}
 	out_handler(group);
@@ -61,8 +61,11 @@ void	child_process(t_cmdgroup *group)
 	group->pid = fork();
 	if (group->pid == 0)
 	{
+		sig_noninteractive();
 		in_out_handler(group);
-		if (execve(group->cmd[0], group->cmd, NULL) == -1)
+		if (!ft_isnested(group) && (group->next || group->prev))
+			printf("pipes not supported for this operation\n");
+		else if (execve(group->cmd[0], group->cmd, NULL) == -1)
 			printf("minishell: %s: command not found\n", group->cmd[0]);
 		exit(127);
 	}
@@ -74,7 +77,8 @@ void	execute(t_data *data)
 	int			stdin;
 	int			stdout;
 
-	sig_noninteractive();
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	group = data->cmdgroup;
 	while (group)
 	{

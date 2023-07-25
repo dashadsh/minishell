@@ -14,12 +14,12 @@
 
 void	welcome(int argc, char **argv)
 {
-	if (argc > 1 || argv[1])
-		exit(printf("error: minishell can't take argument(s)\n") - 39);
+	if (argc > 1 && ft_strcmp(argv[1], "nested"))
+		exit(printf("minishell: %s: no such file or directory\n", argv[1]));
 	printf("%s   ****************************************\n",
 		"\033[0;32m");
 	printf("   *        welcome to minishell          *\n");
-	printf("   *%s   created by marvellous and daria    %s*\n",
+	printf("   *%s   created by Marvellous and Daria    %s*\n",
 		"\033[0;33m", "\033[0;32m");
 	printf("   ****************************************\n%s",
 		"\033[0m");
@@ -27,8 +27,6 @@ void	welcome(int argc, char **argv)
 
 int	run_minishell(t_data *data)
 {
-	if (!ft_strncmp(data->input, "exit", 4) && ft_strlen(data->input) == 4)
-		exit_free(data);
 	if (early_err(data) == -1)
 	{
 		g_exit_status = 2;
@@ -75,7 +73,7 @@ int	main(int ac, char **av, char **envp)
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
 	g_exit_status = 0;
-	envplist_handler(&data->env_lst, envp);
+	pre_env(data, ac, av, envp);
 	minishell_loop(data);
 	return (0);
 }

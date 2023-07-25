@@ -206,6 +206,7 @@ void	free_outs(t_outs **ptr);
 void	free_cmdgroup(t_data *data);
 void	exit_free(t_data *data);
 void	exec_free(t_data *data);
+int		ft_exit(t_data *data, t_cmdgroup *group, char **str);
 //---------------PARSING-----------------//
 // 01early_err.c
 int		early_err(t_data *data);
@@ -286,5 +287,12 @@ void	ctrl_c_heredoc(int sig);
 void	sig_heredoc(void);
 void	ctrl_c_heredoc_parent(int sig);
 void	sig_parent_heredoc(void);
+
+//nested minishell
+int		ft_isnested(t_cmdgroup *group);
+char	*ft_update(char *value);
+int		ft_nested(t_data *data, t_cmdgroup	*group);
+void	envplist_handler(t_envp **head, char **envp);
+void	pre_env(t_data *data, int ac, char **av, char **envp);
 
 #endif

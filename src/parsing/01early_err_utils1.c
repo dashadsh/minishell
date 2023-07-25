@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01early_err_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:17 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/23 12:09:31 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:08:39 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

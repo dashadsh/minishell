@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envplist_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:32:54 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/16 10:32:56 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:17:45 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

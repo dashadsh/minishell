@@ -54,20 +54,3 @@ void	ft_cd(t_data *data, char **str)
 		update_pwd(data);
 	}
 }
-
-// void	ft_cd(t_data *data, char **str)
-// {
-// 	g_exit_status = 0;
-// 	if (arrlen(str) > 2)
-// 	{
-// 		printf("minishell: cd: too many arguments\n");
-// 		g_exit_status = 1;
-// 	}
-// 	else if (arrlen(str) == 1)
-// 		cd_home(data);
-// 	else if (chdir(str[1]))
-// 	{
-// 		printf("minishell: cd: %s: %s\n", str[1], strerror(errno));
-// 		g_exit_status = 1;
-// 	}
-// }

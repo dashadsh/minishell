@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:17:09 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/24 20:14:26 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:07:07 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
